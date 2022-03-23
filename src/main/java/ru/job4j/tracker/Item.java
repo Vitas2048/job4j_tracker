@@ -4,6 +4,23 @@ public class Item {
     private int id;
     private String name;
 
+    public Item() {
+
+    }
+
+    public Item(int id) {
+        this.id = id;
+    }
+
+    public Item(String name) {
+        this.name = name;
+    }
+
+    public Item(int id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
