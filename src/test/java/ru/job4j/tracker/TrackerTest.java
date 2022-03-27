@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 
 
 public class TrackerTest {
+
     @Test
     public void whenTestFindById() {
         Tracker tracker = new Tracker();
