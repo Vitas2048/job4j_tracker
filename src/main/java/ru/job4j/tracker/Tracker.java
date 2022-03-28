@@ -75,11 +75,12 @@ public class Tracker {
         boolean rsl1 = true;
         int index = 0;
         index = indexOf(id);
-        System.arraycopy(items, index + 1, items, index, size - index - 1);
-        items[size - 1] = null;
-        size--;
         if (index == -1) {
             rsl1 = false;
+        } else {
+            System.arraycopy(items, index + 1, items, index, size - index - 1);
+            items[size - 1] = null;
+            size--;
         }
         return rsl1;
     }
