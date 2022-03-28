@@ -50,8 +50,11 @@ public class Item {
     public String toString() {
         return "Item{"
                 + "created=" + created.format(FORMATTER)
-                + ", id=" + id
-                + ", name='" + name + '\'' +
-                '}';
+                + ", id="
+                + id
+                + ", name='"
+                + name
+                + '\''
+                + '}';
     }
 }
