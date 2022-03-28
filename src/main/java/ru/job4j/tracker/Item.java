@@ -7,9 +7,19 @@ public class Item {
     private LocalDateTime created = LocalDateTime.now();
     private int id;
     private String name;
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
     public Item() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "created=" + created.format(FORMATTER) +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public Item(int id) {
