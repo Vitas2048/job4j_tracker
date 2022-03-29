@@ -26,7 +26,12 @@ public class StartUI {
                 case (2):
                     System.out.println("Введите id заявки которую хотите заменить");
                     int change = Integer.parseInt(scanner.nextLine());
-                    tracker.replace(change, new Item());
+                    System.out.println("Введите новое название заявки: ");
+                    String setName1 = input.nextLine();
+                    new Item().setName(setName1);
+                    Item b = new Item();
+                    b.setName(setName1);
+                    tracker.replace(change, b);
                     break;
                 case (3):
                     System.out.println("Введите id заявки которую хотите удалить");
