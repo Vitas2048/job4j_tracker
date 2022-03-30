@@ -27,6 +27,10 @@ public class StartUI {
                     }
                     break;
                 case (2):
+                    if (tracker.findAll().length == 0) {
+                        System.out.println("Хранилище не содержит заявок");
+                        break;
+                    }
                     System.out.println("Введите id заявки которую хотите заменить");
                     int change = Integer.parseInt(scanner.nextLine());
                     System.out.println("Введите новое название заявки: ");
