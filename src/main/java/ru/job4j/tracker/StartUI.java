@@ -59,10 +59,17 @@ public class StartUI {
                     System.out.println(tracker.findById(showid));
                     break;
                 case (5):
+                    if (tracker.findAll().length == 0) {
+                        System.out.println("Найти заявку не удалось, т.к. хранилище не содержит заявок ");
+                        break;
+                    }
                     System.out.println("Введите имя заявки которую хотите вывести на экран");
                     String showName = input.nextLine();
                     for (int i = 0; i < tracker.findByName(showName).length; i++) {
                         System.out.println(tracker.findByName(showName)[i].toString());
+                    }
+                    if (tracker.findByName(showName).length == 0) {
+                        System.out.println("Заявка с таким именем не найдена");
                     }
                     break;
                 case (6):
