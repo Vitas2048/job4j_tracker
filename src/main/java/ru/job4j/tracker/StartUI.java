@@ -39,6 +39,9 @@ public class StartUI {
                     Item b = new Item();
                     b.setName(setName1);
                     tracker.replace(change, b);
+                    if (!tracker.replace(change, b)) {
+                        System.out.println("ошибка замены");
+                    }
                     break;
                 case (3):
                     if (tracker.findAll().length == 0) {
