@@ -22,6 +22,9 @@ public class StartUI {
                     for (int i = 0; i < tracker.findAll().length; i++) {
                         System.out.println(tracker.findAll()[i].toString());
                     }
+                    if (tracker.findAll().length == 0) {
+                        System.out.println("Хранилище не содержит заявок");
+                    }
                     break;
                 case (2):
                     System.out.println("Введите id заявки которую хотите заменить");
