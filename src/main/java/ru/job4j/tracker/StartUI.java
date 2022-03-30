@@ -51,7 +51,7 @@ public class StartUI {
                     break;
                 case (4):
                     if (tracker.findAll().length == 0) {
-                        System.out.println("Найти заявку не удалось, т.к. хранилище не содержит заявок");
+                        System.out.println("Найти заявку не удалось, т.к. хранилище не содержит заявок ");
                         break;
                     }
                     System.out.println("Введите id заявки которую хотите вывести на экран");
