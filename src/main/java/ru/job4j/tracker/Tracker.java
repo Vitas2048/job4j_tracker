@@ -59,15 +59,15 @@ public class Tracker {
     }
 
     public boolean delete(int id) {
-        boolean rsl1 = false;
+        boolean rsl = false;
         int index = 0;
         index = indexOf(id);
         if (index != -1) {
             System.arraycopy(items, index + 1, items, index, size - index - 1);
             items[size - 1] = null;
             size--;
-            rsl1 = true;
+            rsl = true;
         }
-        return rsl1;
+        return rsl;
     }
 }
