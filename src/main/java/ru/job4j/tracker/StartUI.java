@@ -28,7 +28,7 @@ public class StartUI {
                     break;
                 case (2):
                     if (tracker.findAll().length == 0) {
-                        System.out.println("Хранилище не содержит заявок");
+                        System.out.println("Изменение заявки не удалось, т.к Хранилище не содержит заявок");
                         break;
                     }
                     System.out.println("Введите id заявки которую хотите заменить");
@@ -42,7 +42,7 @@ public class StartUI {
                     break;
                 case (3):
                     if (tracker.findAll().length == 0) {
-                        System.out.println("Хранилище не содержит заявок");
+                        System.out.println("Удаление заявки не удалось, т.к хранилище не содержит заявок");
                         break;
                     }
                     System.out.println("Введите id заявки которую хотите удалить");
@@ -50,6 +50,10 @@ public class StartUI {
                     tracker.delete(del);
                     break;
                 case (4):
+                    if (tracker.findAll().length == 0) {
+                        System.out.println("Найти заявку не удалось, т.к. хранилище не содержит заявок");
+                        break;
+                    }
                     System.out.println("Введите id заявки которую хотите вывести на экран");
                     int showid = Integer.parseInt(scanner.nextLine());
                     System.out.println(tracker.findById(showid));
