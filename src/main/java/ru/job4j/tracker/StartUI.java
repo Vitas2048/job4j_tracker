@@ -41,6 +41,10 @@ public class StartUI {
                     tracker.replace(change, b);
                     break;
                 case (3):
+                    if (tracker.findAll().length == 0) {
+                        System.out.println("Хранилище не содержит заявок");
+                        break;
+                    }
                     System.out.println("Введите id заявки которую хотите удалить");
                     int del = Integer.parseInt(scanner.nextLine());
                     tracker.delete(del);
