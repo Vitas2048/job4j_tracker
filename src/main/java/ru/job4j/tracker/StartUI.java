@@ -48,7 +48,7 @@ public class StartUI {
                     System.out.println("Введите id заявки которую хотите удалить");
                     int del = Integer.parseInt(scanner.nextLine());
                     tracker.delete(del);
-                    if (!tracker.delete(del)){
+                    if (!tracker.delete(del)) {
                         System.out.println("Заявка с таким id не найдена");
                     }
                     break;
