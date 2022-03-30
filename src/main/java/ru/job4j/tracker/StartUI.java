@@ -56,7 +56,12 @@ public class StartUI {
                     }
                     System.out.println("Введите id заявки которую хотите вывести на экран");
                     int showid = Integer.parseInt(scanner.nextLine());
-                    System.out.println(tracker.findById(showid));
+
+                    if (tracker.findById(showid) == null) {
+                        System.out.println("Заявка с таким id не найдена");
+                    } else {
+                        System.out.println(tracker.findById(showid));
+                    }
                     break;
                 case (5):
                     if (tracker.findAll().length == 0) {
