@@ -38,7 +38,7 @@ public class StartUI {
                 if (tracker.replace(id, item)) {
                     System.out.println("Заявка изменена успешно.");
                 } else {
-                    System.out.println("Ошибка замены заявки.");
+                    System.out.println("Ошибка замены заявки. ");
                 }
             } else if (select == 6) {
                 run = false;
