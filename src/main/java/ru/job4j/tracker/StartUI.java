@@ -18,12 +18,12 @@ public class StartUI {
     }
 
     private void showMenu(UserAction[] actions) {
-        Output output = new ConsoleOutput();
-        output.println("Menu.");
+        out.println("Menu.");
         for (int index = 0; index < actions.length; index++) {
-            output.println(index + ". " + actions[index].name());
+            out.println(index + ". " + actions[index].name());
         }
     }
+
 
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
@@ -32,7 +32,6 @@ public class StartUI {
         UserAction[] actions = {
                 new CreateAction(output),
                 new ShowAllAction(output),
-                new ExitAction(output),
                 new DeleteAction(output),
                 new FindAction(output),
                 new FindByNameAction(output),
