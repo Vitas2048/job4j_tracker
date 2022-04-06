@@ -7,8 +7,7 @@ public class ConsoleInput implements Input {
 
     @Override
     public String askStr(String question) {
-        Output out = new ConsoleOutput();
-        out.println(question);
+        System.out.println(question);
         return scanner.nextLine();
     }
 
