@@ -24,7 +24,7 @@ public class ValidateInput implements Input {
                 value = Integer.parseInt(rsl);
                 invalid = false;
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                out.println("please enter validate data again");
             }
         } while (invalid);
         return value;
