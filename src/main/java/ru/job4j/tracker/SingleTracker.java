@@ -5,8 +5,10 @@ import ru.job4j.tracker.Tracker;
 public final class SingleTracker {
     private Tracker tracker = new Tracker();
     private static SingleTracker instance = null;
-    private int ids = 1;
-    private int size = 0;
+
+    private SingleTracker() {
+
+    }
 
     public static SingleTracker getInstance() {
         if (instance == null) {
@@ -27,38 +29,12 @@ public final class SingleTracker {
         return tracker.findByName(key);
     }
 
-    private int indexOf(int id) {
-        int rsl = -1;
-        for (int index = 0; index < size; index++) {
-            if (tracker.items[index].getId() == id) {
-                rsl = index;
-                break;
-            }
-        }
-        return rsl;
-    }
-
     public boolean replace(int id, Item item) {
-        boolean rsl = false;
-        int index = indexOf(id);
-        if (index != -1) {
-            item.setId(id);
-            tracker.items[index] = item;
-            rsl = true;
-        }
-        return rsl;
+       return tracker.replace(id, item);
     }
 
     public boolean delete(int id) {
-        boolean rsl = false;
-        int index = indexOf(id);
-        if (index != -1) {
-            System.arraycopy(tracker.items, index + 1, tracker.items, index, size - index - 1);
-            tracker.items[size - 1] = null;
-            size--;
-            rsl = true;
-        }
-        return rsl;
+        return  tracker.delete(id);
     }
 
 }
