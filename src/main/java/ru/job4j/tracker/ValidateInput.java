@@ -20,7 +20,6 @@ public class ValidateInput implements Input {
         int value = -1;
         do {
             try {
-                String rsl = in.askStr(question);
                 value = in.askInt(question);
                 invalid = false;
             } catch (NumberFormatException e) {
