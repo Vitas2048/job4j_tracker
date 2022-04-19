@@ -33,6 +33,4 @@ public class ConvertList2Array {
             System.out.println();
         }
     }
-
-
 }
