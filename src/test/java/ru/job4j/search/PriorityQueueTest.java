@@ -1,10 +1,8 @@
-package ru.job4j.tracker.search;
+package ru.job4j.search;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import ru.job4j.search.PriorityQueue;
+import ru.job4j.search.Task;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

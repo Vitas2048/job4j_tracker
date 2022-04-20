@@ -1,6 +1,9 @@
-package ru.job4j.tracker.search;
+package ru.job4j.search;
 
+import org.junit.Assert;
 import org.junit.Test;
+import ru.job4j.search.Person;
+import ru.job4j.search.PhoneDictionary;
 
 import java.util.ArrayList;
 import static org.hamcrest.core.Is.is;
@@ -27,6 +30,6 @@ public class PhoneDictionaryTest {
         );
         ArrayList<Person> persons = phones.find("asdw");
         ArrayList<Person> emptyList = new ArrayList<>();
-        assertEquals(persons, emptyList);
+        Assert.assertTrue(persons.isEmpty());
     }
 }
