@@ -25,7 +25,7 @@ public class Tracker {
     }
 
     public List<Item> findByName(String key) {
-        List<Item> rsl = new ArrayList<>(items);
+        List<Item> rsl = new ArrayList<>();
         for (Item item : items) {
            if (item.getName().equals(key)) {
                rsl.add(item);
@@ -34,13 +34,11 @@ public class Tracker {
         return rsl;
     }
 
-    private int indexOf(int id) {
+    public int indexOf(int id) {
         int rsl = -1;
-
-        for (int index = 0; index < size; index++) {
-            if (items.get(index).getId() == id) {
-                rsl = index;
-                break;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == id) {
+                rsl = i;
             }
         }
         return rsl;
@@ -60,9 +58,8 @@ public class Tracker {
     public boolean delete(int id) {
         boolean rsl = false;
         int index = indexOf(id);
-        List<Item> items1 = new ArrayList<>(items);
         if (index != -1) {
-            items1.add(items.get(index + 1));
+            items.remove(index);
             size--;
             rsl = true;
         }
