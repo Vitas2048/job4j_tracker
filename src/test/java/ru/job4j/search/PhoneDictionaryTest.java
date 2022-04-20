@@ -26,7 +26,7 @@ public class PhoneDictionaryTest {
     public void whenNotFound() {
         PhoneDictionary phones = new PhoneDictionary();
         phones.add(
-                new Person("Petr", "Arsentev", "534872", "Bryansk")
+                new Person("Petr", "Arsentev ", "534872", "Bryansk")
         );
         ArrayList<Person> persons = phones.find("asdw");
         ArrayList<Person> emptyList = new ArrayList<>();
