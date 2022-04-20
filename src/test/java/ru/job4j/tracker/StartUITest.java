@@ -144,7 +144,7 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         List<UserAction> actions = new ArrayList<>();
-
+        actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(

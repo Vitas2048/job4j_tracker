@@ -49,7 +49,7 @@ public class Tracker {
         int index = indexOf(id);
         if (index != -1) {
             item.setId(id);
-            items.add(items.get(index));
+            items.set(index, item);
             rsl = true;
         }
         return rsl;
