@@ -40,8 +40,8 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         List<UserAction> actions = new ArrayList<>();
-        actions.add( new EditAction(out));
-        actions.add( new ExitAction(out));
+        actions.add(new EditAction(out));
+        actions.add(new ExitAction(out));
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
