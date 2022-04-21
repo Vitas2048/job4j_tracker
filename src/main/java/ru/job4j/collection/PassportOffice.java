@@ -16,7 +16,6 @@ public class PassportOffice {
         return rsl;
     }
 
-
     public Citizen get(String passport) {
         if (citizens.get(passport) == null) {
             System.out.println("Такого гражданина нету");
