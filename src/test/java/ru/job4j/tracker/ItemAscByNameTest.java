@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 public class ItemAscByNameTest {
 
     @Test
-    public void WhenSort() {
+    public void whenSort() {
         Item a = new Item("A");
         Item b = new Item("B");
         Item c = new Item("C");
