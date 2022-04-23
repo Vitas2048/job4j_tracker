@@ -60,6 +60,7 @@ public class BankService {
                     findByRequisite(srcPassport, srcRequisite).getBalance() - amount);
             findByRequisite(destPassport, destRequisite).setBalance(
                     findByRequisite(destPassport, destRequisite).getBalance() + amount);
+            rsl = true;
         }
         return rsl;
     }
