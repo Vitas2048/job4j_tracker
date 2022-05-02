@@ -5,22 +5,22 @@ import java.util.*;
 public class DepDescComp implements Comparator<String> {
     @Override
     public int compare(String o1, String o2) {
-        int comp = 0;
-        int i = 0;
-            while (i < o1.split("/").length && i < o2.split("/").length
-                    && o1.split("/")[i].compareTo(o2.split("/")[i]) == 0) {
-                comp = comp + o2.split("/")[i].compareTo(o1.split("/")[i]);
-                i++;
-            }
-            if (i != 0) {
-                while (i < o1.split("/").length && i < o2.split("/").length) {
-                    comp = comp + o1.split("/")[i].compareTo(o2.split("/")[i]);
-                    i++;
+        int rsl = 0;
+        String[] s1 = o1.split("/");
+        String[] s2 = o2.split("/");
+        for (String ss1: s1) {
+            for (String ss2 :s2) {
+                if (ss1.equals(ss2)) {
+                    rsl = ss2.compareTo(ss1);
+                    break;
                 }
-            } else {
-                comp = comp + o2.compareTo(o1);
             }
-        return comp;
+        }
+        if (rsl == 0) {
+         return o1.compareTo(o2);
+        } else {
+            return rsl;
+        }
     }
 
 }

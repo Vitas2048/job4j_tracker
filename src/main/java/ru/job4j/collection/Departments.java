@@ -9,18 +9,13 @@ public class Departments {
         Set<String> tmp = new LinkedHashSet<>();
         for (String value : deps) {
             String start = "";
-            for (int i = 0; i < value.split("/").length; i++) {
-                String s =  value.split("/")[i];
-                if (i == 0) {
-                    start = s;
-                    tmp.add(start);
-                } else if (i < value.split("/").length - 1) {
-                    start = start + "/" + s;
-                    tmp.add(start);
+            for (String el : value.split("/")) {
+                if (start.equals("")) {
+                    start = start + el;;
                 } else {
-                    tmp.add(start + "/" + s);
-                    start = "";
+                    start = start + "/" + el;
                 }
+                tmp.add(start);
             }
         }
         rsl.addAll(tmp);
