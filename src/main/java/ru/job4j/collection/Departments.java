@@ -11,7 +11,7 @@ public class Departments {
             String start = "";
             for (String el : value.split("/")) {
                 if (start.equals("")) {
-                    start = start + el;;
+                    start = start + el;
                 } else {
                     start = start + "/" + el;
                 }
@@ -23,13 +23,10 @@ public class Departments {
     }
 
     public static void sortAsc(List<String> orgs) {
-        Collections.sort(orgs, new DepDescComp().reversed());
+        Collections.sort(orgs);
     }
 
     public static void sortDesc(List<String> orgs) {
-
         Collections.sort(orgs, new DepDescComp());
     }
-
-
 }

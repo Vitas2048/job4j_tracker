@@ -127,18 +127,4 @@ public class DepartmentsTest {
         Departments.sortDesc(input);
         assertThat(input, is(expect));
     }
-    @Test
-    public void when() {
-        List<String> input = Arrays.asList(
-                "K1/SK1",
-                "K1"
-        );
-        List<String> expect = Arrays.asList(
-                "K1",
-                "K1/SK1"
-        );
-        Departments.sortDesc(input);
-        assertThat(input, is(expect));
-    }
-
 }
