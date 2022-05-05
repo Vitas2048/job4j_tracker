@@ -28,8 +28,8 @@ public class FunctionInterfaceUsage {
         System.out.println("Третий символ в строке: " + func.apply("first"));
         System.out.println("Третий символ в строке: " + func.apply("second"));
         BiFunction<String, Integer, String> biFunc = (s, integ) -> s.concat(" ").concat(integ.toString());
-        System.out.println("Результат работы бифункции: " + biFunc.apply("Name" , 123));
-        System.out.println("Результат работы бифункции: " + biFunc.apply("String number" , 12345));
+        System.out.println("Результат работы бифункции: " + biFunc.apply("Name", 123));
+        System.out.println("Результат работы бифункции: " + biFunc.apply("String number", 12345));
         UnaryOperator<StringBuilder> builder = b -> b.reverse();
         System.out.println("Строка после реверса " + builder.apply(new StringBuilder("String for test")));
         System.out.println("Строка после реверса " + builder.apply(new StringBuilder("tset rof gnirtS")));
