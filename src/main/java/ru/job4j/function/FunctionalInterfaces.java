@@ -20,14 +20,12 @@ public class FunctionalInterfaces {
         for (Integer i : map.keySet()) {
             System.out.println(map.get(i));
         }
-
         BiPredicate<Integer, String> biPred = (s, i) -> s % 2 == 0 || i.length() == 4;
         for (Integer i : map.keySet()) {
             if (biPred.test(i, map.get(i))) {
                 System.out.println("key: " + i + " value: " + map.get(i));
             }
         }
-
         Supplier<List<String>> sup =() -> new ArrayList<>(map.values());
         List<String> strings = new ArrayList<>(map.values());
         sup.get();
