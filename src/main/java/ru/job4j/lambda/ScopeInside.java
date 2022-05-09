@@ -7,12 +7,11 @@ import java.util.function.IntToDoubleFunction;
 import java.util.function.Supplier;
 
 public class ScopeInside {
-    public List<Double>diapason(int start, int end, Function<Double, Double> func) {
+    public List<Double>diapason(int start, int end, Function<Double, Double>func) {
         List<Double> f  = new ArrayList<>();
         Double x1 = 0D;
-        for (int i = start; i < end ; i++) {
-            double ii = i;
-            f.add(func.apply(ii));
+        for (int i = start; i < end; i++) {
+            f.add(func.apply((double) i));
         }
         return f;
     }
