@@ -36,4 +36,8 @@ public class Address {
     public int hashCode() {
         return Objects.hash(city, street, home, apartment);
     }
+
+    public String getCity() {
+        return city;
+    }
 }
