@@ -21,7 +21,7 @@ public class Card {
                         .map(v -> new Card(l, v)))
                 .collect(Collectors.toList());
         for (Card card : cards) {
-            System.out.println( card.suit.toString() + " " + card.value.toString());
+            System.out.println(card.suit.toString() + " " + card.value.toString());
         }
     }
 }
