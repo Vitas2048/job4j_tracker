@@ -15,11 +15,9 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        List<Card> cards = new ArrayList<>();
-        cards = Stream.of(Suit.values())
+        List<Card> cards = Stream.of(Suit.values())
                 .flatMap(l -> Stream.of(Value.values())
-                        .map(v -> new Card(l, v)))
-                .collect(Collectors.toList());
+                        .map(v -> new Card(l, v))).toList();
         for (Card card : cards) {
             System.out.println(card.suit.toString() + " " + card.value.toString());
         }
