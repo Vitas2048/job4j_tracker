@@ -38,6 +38,7 @@ public class User {
         private String password;
         private boolean activated;
         private String gender;
+
         Builder buildName(String name) {
             this.name = name;
             return this;
@@ -85,6 +86,7 @@ public class User {
             return user;
         }
     }
+
     public static void main(String[] args) {
         User user = new Builder().buildName("name")
                 .buildSurname("surname")
