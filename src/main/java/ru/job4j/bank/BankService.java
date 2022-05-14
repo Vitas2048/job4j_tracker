@@ -47,10 +47,10 @@ public class BankService {
      */
     public User findByPassport(String passport) {
         return users.keySet()
-                .stream()
-                .filter(s -> s.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
+                 .stream()
+                 .filter(s -> s.getPassport().equals(passport))
+                 .findFirst()
+                 .orElse(null);
     }
 
     /**
@@ -64,10 +64,10 @@ public class BankService {
         User passUser = findByPassport(passport);
         if (passUser != null) {
             return users.get(passUser)
-                    .stream()
-                    .filter(s -> s.getRequisite().equals(requisite))
-                    .findFirst()
-                    .orElse(null);
+                     .stream()
+                     .filter(s -> s.getRequisite().equals(requisite))
+                     .findFirst()
+                     .orElse(null);
         }
         return null;
     }
