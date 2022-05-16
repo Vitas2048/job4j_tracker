@@ -31,7 +31,7 @@ public class Analyze {
         return stream
                 .flatMap(pupil -> pupil.getSubjects().parallelStream())
                 .collect(Collectors
-                        .groupingBy(Subject::getName, LinkedHashMap::new,
+                        .groupingBy(Subject::getName,
                                 Collectors.averagingDouble(Subject::getScore)))
                 .entrySet()
                 .stream()
@@ -57,7 +57,7 @@ public class Analyze {
                                 Collectors.summingDouble(Subject::getScore)))
                 .entrySet()
                 .stream()
-                .map(stringDoubleEntry -> new Tuple(stringDoubleEntry.getKey(), stringDoubleEntry.getValue()))
+                .map(e -> new Tuple(e.getKey(), e.getValue()))
                 .max(Comparator.comparing(Tuple::getScore))
                 .orElse(null);
     }
