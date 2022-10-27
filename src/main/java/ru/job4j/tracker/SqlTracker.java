@@ -33,7 +33,6 @@ public class SqlTracker implements Store, AutoCloseable {
         }
     }
 
-
     @Override
     public void close() throws Exception {
         if (cn != null) {
