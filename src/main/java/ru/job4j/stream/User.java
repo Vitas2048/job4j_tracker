@@ -97,5 +97,6 @@ public class User {
                 .buildGender("male")
                 .build();
         System.out.println(user.toString());
+        System.out.println("hello");
     }
 }
