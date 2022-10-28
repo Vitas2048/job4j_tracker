@@ -23,7 +23,7 @@ public class FindByNameAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Store tracker) throws SQLException {
+    public boolean execute(Input input, Store tracker) {
         String name = input.askStr("Enter name: ");
         List<Item> items = tracker.findByName(name);
         for (Item item: items) {

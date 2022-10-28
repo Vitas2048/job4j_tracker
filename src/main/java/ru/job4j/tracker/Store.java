@@ -6,16 +6,16 @@ import java.util.List;
 
 public interface Store {
 
-    Item add(Item item) throws SQLException;
+    Item add(Item item);
 
-    boolean replace(int id, Item item) throws SQLException;
+    boolean replace(int id, Item item);
 
-    boolean delete(int id) throws SQLException;
+    boolean delete(int id);
 
-    List<Item> findAll() throws SQLException;
+    List<Item> findAll();
 
-    List<Item> findByName(String key) throws SQLException;
+    List<Item> findByName(String key);
 
-    Item findById(int id) throws SQLException;
+    Item findById(int id);
 
 }

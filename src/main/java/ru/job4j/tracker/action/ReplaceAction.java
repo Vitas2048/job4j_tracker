@@ -22,7 +22,7 @@ public class ReplaceAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Store tracker) throws SQLException {
+    public boolean execute(Input input, Store tracker) {
         int id = Integer.parseInt(input.askStr("Enter id: "));
         String name = input.askStr("Enter name: ");
         if (tracker.replace(id, new Item(name))) {

@@ -41,99 +41,91 @@ public class SqlTracker implements Store, AutoCloseable {
     }
 
     @Override
-    public Item add(Item item) throws SQLException {
-        try (PreparedStatement statement = cn.prepareStatement("insert into items(name, created) values(?, ?)")) {
+    public Item add(Item item) {
+        try (var statement = cn.prepareStatement("insert into items(name, created) values(?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             statement.execute();
+            try (ResultSet genKeys = statement.getGeneratedKeys()) {
+                if (genKeys.next()) {
+                    item.setId(genKeys.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return item;
     }
 
     @Override
-    public boolean replace(int id, Item item) throws SQLException {
+    public boolean replace(int id, Item item) {
         boolean result;
-        try (PreparedStatement statement = cn.prepareStatement("update items set name = ? where id = ?")) {
+        try (var statement = cn.prepareStatement("update items set name = ?, created = ? where id = ?")) {
             statement.setString(1, item.getName());
-            statement.setInt(2, id);
+            statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(3, id);
             result = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
 
     @Override
-    public boolean delete(int id) throws SQLException {
+    public boolean delete(int id) {
         boolean result;
-        try (PreparedStatement statement = cn.prepareStatement("delete from items where id = ?")) {
+        try (var statement = cn.prepareStatement("delete from items where id = ?")) {
             statement.setInt(1, id);
             result = statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return result;
     }
 
     @Override
-    public List<Item> findAll() throws SQLException {
+    public List<Item> findAll() {
         List<Item> list = new ArrayList<>();
         try (var statement = cn.createStatement()) {
-            var selection = statement.executeQuery("select * from items");
-            while (selection.next()) {
-                list.add(new Item(selection.getInt("id"),
-                        selection.getString("name"),
-                        selection.getTimestamp("created").toLocalDateTime())
-                );
-            }
+            list.add(useSelection(statement.executeQuery("select * from items")));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return list;
     }
 
     @Override
-    public List<Item> findByName(String key) throws SQLException {
+    public List<Item> findByName(String key) {
         List<Item> list = new ArrayList<>();
-        try (var statement = cn.createStatement()) {
-            var selection = statement.executeQuery(String.format("select * from items where name = '%s'", key));
-            while (selection.next()) {
-                list.add(new Item(selection.getInt("id"),
-                        selection.getString("name"),
-                        selection.getTimestamp("created").toLocalDateTime())
-                );
-            }
+        try (var statement = cn.prepareStatement("select * from items where name = '?'")) {
+            statement.setString(1, key);
+            list.add(useSelection(statement.executeQuery()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return list;
     }
 
     @Override
-    public Item findById(int id) throws SQLException {
-        Item item = null;
-        try (var statement = cn.createStatement()) {
-            var selection = statement.executeQuery(String.format("select * from items where id = %s", id));
-            while (selection.next()) {
-                item = new Item(selection.getInt("id"),
-                        selection.getString("name"),
-                        selection.getTimestamp("created").toLocalDateTime());
-            }
+    public Item findById(int id){
+        Item item;
+        try (var statement = cn.prepareStatement("select * from items where id = ?")) {
+            statement.setInt(1, id);
+            item = useSelection(statement.executeQuery());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return item;
     }
 
-    public static void main(String[] args) {
-        Input input = new ValidateInput(
-                new ConsoleInput()
-        );
-        Output output = new ConsoleOutput();
-        try (SqlTracker tracker = new SqlTracker()) {
-            tracker.init();
-            List<UserAction> actions = List.of(
-                    new CreateAction(output),
-                    new ReplaceAction(output),
-                    new DeleteAction(output),
-                    new FindAllAction(output),
-                    new FindByIdAction(output),
-                    new FindByNameAction(output),
-                    new ExitAction()
-            );
-            new StartUI().init(input, tracker, actions);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Item useSelection(ResultSet selection) throws SQLException {
+        Item item = null;
+        while (selection.next()) {
+            item = new Item(selection.getInt("id"),
+                    selection.getString("name"),
+                    selection.getTimestamp("created").toLocalDateTime());
         }
+        return item;
     }
 }
