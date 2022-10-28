@@ -1,12 +1,9 @@
 package ru.job4j.tracker;
 
-import ru.job4j.tracker.action.*;
-import ru.job4j.tracker.input.ConsoleInput;
-import ru.job4j.tracker.input.Input;
-import ru.job4j.tracker.input.ValidateInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.output.ConsoleOutput;
-import ru.job4j.tracker.output.Output;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -17,6 +14,8 @@ import java.util.Properties;
 public class SqlTracker implements Store, AutoCloseable {
 
     private Connection cn;
+
+    public static final Logger LOG = LoggerFactory.getLogger(SqlTracker.class.getName());
 
     public void init() {
         try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
@@ -29,7 +28,7 @@ public class SqlTracker implements Store, AutoCloseable {
                     config.getProperty("password")
             );
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            LOG.error("IllegalsStateException", e);
         }
     }
 
@@ -53,33 +52,33 @@ public class SqlTracker implements Store, AutoCloseable {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return item;
     }
 
     @Override
     public boolean replace(int id, Item item) {
-        boolean result;
+        boolean result = false;
         try (var statement = cn.prepareStatement("update items set name = ?, created = ? where id = ?")) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(3, id);
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return result;
     }
 
     @Override
     public boolean delete(int id) {
-        boolean result;
+        boolean result = false;
         try (var statement = cn.prepareStatement("delete from items where id = ?")) {
             statement.setInt(1, id);
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return result;
     }
@@ -88,9 +87,12 @@ public class SqlTracker implements Store, AutoCloseable {
     public List<Item> findAll() {
         List<Item> list = new ArrayList<>();
         try (var statement = cn.createStatement()) {
-            list.add(useSelection(statement.executeQuery("select * from items")));
+            var selection = statement.executeQuery("select * from items");
+            while (selection.next()) {
+                list.add(useSelection(selection));
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return list;
     }
@@ -98,34 +100,37 @@ public class SqlTracker implements Store, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> list = new ArrayList<>();
-        try (var statement = cn.prepareStatement("select * from items where name = '?'")) {
+        try (var statement = cn.prepareStatement("select * from items where name = ?")) {
             statement.setString(1, key);
-            list.add(useSelection(statement.executeQuery()));
+            var selection = statement.executeQuery();
+            while (selection.next()) {
+                list.add(useSelection(selection));
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return list;
     }
 
     @Override
     public Item findById(int id) {
-        Item item;
+        Item item = null;
         try (var statement = cn.prepareStatement("select * from items where id = ?")) {
             statement.setInt(1, id);
-            item = useSelection(statement.executeQuery());
+            var selection = statement.executeQuery();
+            if (selection.next()) {
+                item = useSelection(selection);
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOG.error("RuntimeException", e);
         }
         return item;
     }
 
     public Item useSelection(ResultSet selection) throws SQLException {
-        Item item = null;
-        while (selection.next()) {
-            item = new Item(selection.getInt("id"),
-                    selection.getString("name"),
-                    selection.getTimestamp("created").toLocalDateTime());
-        }
-        return item;
+        return  new Item(selection.getInt("id"),
+                selection.getString("name"),
+                selection.getTimestamp("created").toLocalDateTime());
     }
+
 }
