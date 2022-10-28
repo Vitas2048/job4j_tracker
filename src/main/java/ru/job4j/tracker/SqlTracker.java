@@ -108,7 +108,7 @@ public class SqlTracker implements Store, AutoCloseable {
     }
 
     @Override
-    public Item findById(int id){
+    public Item findById(int id) {
         Item item;
         try (var statement = cn.prepareStatement("select * from items where id = ?")) {
             statement.setInt(1, id);
