@@ -1,12 +1,9 @@
 package ru.job4j.tracker.input;
 
 import org.junit.Test;
-import ru.job4j.tracker.SqlTracker;
-import ru.job4j.tracker.SqlTrackerTest;
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.action.ReplaceAction;
-import ru.job4j.tracker.model.Item;
-import ru.job4j.tracker.output.ConsoleOutput;
+import ru.job4j.tracker.Item;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.output.StubOutput;
 
