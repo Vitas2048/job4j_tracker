@@ -39,13 +39,13 @@ public class HbmTracker implements AutoCloseable, Store {
         try {
             session.beginTransaction();
             var res = session.createQuery("""
-                            update item  set name = :fName, created = :fCreated, where id = :fId
+                            update Item set name=:fName where id=:fId
                             """)
                     .setParameter("fName", item.getName())
-                    .setParameter("fCreated", Timestamp.valueOf(item.getCreated()))
-                    .setParameter("fId", id).executeUpdate();
+                    .setParameter("fId", id);
+            res.executeUpdate();
             session.getTransaction().commit();
-            return res > 0;
+            return true;
         } catch (Exception e) {
             session.getTransaction().rollback();
             return false;
@@ -87,7 +87,7 @@ public class HbmTracker implements AutoCloseable, Store {
     public List<Item> findByName(String key) {
         Session session = sf.openSession();
         session.beginTransaction();
-        Query<Item> query = session.createQuery("from Item where as i where name = :fName", Item.class)
+        Query<Item> query = session.createQuery("from Item as i where i.name = :fName", Item.class)
                 .setParameter("fName", key);
         List<Item> items = query.getResultList();
         session.getTransaction().commit();
