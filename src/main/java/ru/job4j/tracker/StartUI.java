@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+import liquibase.Contexts;
+import liquibase.LabelExpression;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.ClassLoaderResourceAccessor;
 import ru.job4j.tracker.action.*;
 import ru.job4j.tracker.input.ConsoleInput;
 import ru.job4j.tracker.input.Input;
@@ -67,6 +74,12 @@ public class StartUI {
         );
         Output output = new ConsoleOutput();
         try (Connection connection = loadConnection()) {
+            Database database = DatabaseFactory
+                    .getInstance()
+                    .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+            Liquibase liquibase = new liquibase.Liquibase("db/dbchangelog.xml",
+                 new ClassLoaderResourceAccessor(), database);
+            liquibase.update(new Contexts(), new LabelExpression());
             Store tracker = new SqlTracker(connection);
             List<UserAction> actions = List.of(
                     new CreateAction(output),
@@ -80,6 +93,5 @@ public class StartUI {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

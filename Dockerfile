@@ -1,13 +1,15 @@
-FROM maven:3.6.3-openjdk-17
+FROM maven:3.6.3-openjdk-17 as maven
 
-RUN mkdir job4j_tracker
+WORKDIR /jtracker
 
-WORKDIR job4j_tracker
+COPY . /jtracker
 
-COPY . .
+RUN mvn install
 
-RUN mvn package -Dmaven.test.skip=true
+FROM openjdk:17.0.2-jdk
 
-CMD ["mvn", "liquibase:update", "-Pdocker"]
+WORKDIR /jtracker
 
-CMD ["java", "-jar", "target/tracker.jar"]
+COPY --from=maven /jtracker/target/tracker.jar jtracker.jar
+
+CMD ["java", "-jar", "jtracker.jar"]

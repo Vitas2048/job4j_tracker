@@ -15,9 +15,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.url.jdbc>${JDBC_URL}</docker.db.url.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.username.jdbc>${JDBC_USERNAME}</docker.db.username.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.password.jdbc>${JDBC_PASSWORD}</docker.db.password.jdbc>
+        <!--suppress UnresolvedMavenProperty -->
         <docker.db.driver.jdbc>${JDBC_DRIVER}</docker.db.driver.jdbc>
     </properties>
 
@@ -47,7 +51,7 @@
             <id>docker</id>
             <properties>
                 <liquibase.changeLogFile>db/dbchangelog.xml</liquibase.changeLogFile>
-                <liquibase.url>${docker_db_url_jdbc}</liquibase.url>
+                <liquibase.url>jdbc:postgresql://127.0.0.1:5432/tracker</liquibase.url>
                 <liquibase.username>postgres</liquibase.username>
                 <liquibase.password>postgres</liquibase.password>
             </properties>
@@ -115,11 +119,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.21.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -233,7 +243,6 @@
                     </descriptorRefs>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
