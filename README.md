@@ -1,4 +1,4 @@
-# job4j_tracker
+# Проект - Трекер
 
 ## Использованные технологии
 * Liquibase
@@ -13,6 +13,8 @@
 * Apache maven 3.8
 * Java 17
 * PostgresSQL 15
+* Docker
+* Docker-compose
 
 ## О проекте
 
@@ -34,12 +36,44 @@
 
 1. Производить поиск по имени заявки. (Find items by name)
 
-## Запуск проекта
+## Запуск проекта (Docker)
 
-1. Установить JDK 17 
-2. Установить 
-3. Установить сервер бд PostgreSQL, при установке задать имя пользователя - postgres, пароль - postgres
-порт - 5432
-4. Создать БД tracker и подключиться к ней
-![create_db](files/create_db.png)
-5. 
+1. Установить Docker
+2. Установить Docker-compose
+3. Через терминал перейти в папку с проектом<br><br>
+![folder](files/folder.png)
+4. Ввести команду
+```shell
+docker-compose build
+```
+![build](files/build.png)
+5. С помощью команды поднять базу данных<br><br>
+```shell
+docker compose up db
+```
+![db](files/db.png)
+6. С помощью команды запустить приложение <br><br>
+```shell
+docker-compose run job4j_tracker
+```
+![run](files/run.png)
+
+## Взаимодействие с проектом
+* Для того чтобы создать новый объект (заявку), необходимо ввести 0 
+и указать имя.
+![addNew](files/add.png)
+* Для изменения имени объекта, необходимо ввести 1 и указать ID объекта,
+затем переименовать.
+![editItem](files/editItem.png)
+* Для удаления объекта необходимо ввести 2 и указать ID
+![deleteItem](files/del.png)
+* Для вывода на экран всех существующих объектов необходимо ввести 3
+![getAll](files/all.png)
+* Для поиска и вывода на экран объекта по ID необходимо ввести 4 и указать ID
+![findByID](files/find.png)
+* Для поиска и вывода на экран объекта/ов по имени необходимо ввести 5 и указать 
+имя объекта
+![findByName](files/byName.png)
+
+## Контакты
+vithag97@mail.ru<br>
